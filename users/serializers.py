@@ -5,7 +5,6 @@ from django.contrib.auth.hashers          import check_password
 from rest_framework                       import serializers
 from rest_framework.serializers           import ModelSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.tokens      import OutstandingToken, BlacklistedToken
 
 from users.models import User
 
@@ -49,9 +48,6 @@ class SignInSerializer(TokenObtainPairSerializer):
         
         if not check_password(password, user.password):
             raise serializers.ValidationError('detail : invalid password')
-
-        for token in OutstandingToken.objects.filter(user=user):
-            BlacklistedToken.objects.get_or_create(token=token)
         
         token         = super().get_token(user)
         refresh_token = str(token)

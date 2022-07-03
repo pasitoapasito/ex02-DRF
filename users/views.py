@@ -6,7 +6,6 @@ from rest_framework_simplejwt.tokens      import OutstandingToken, BlacklistedTo
 from drf_yasg          import openapi
 from drf_yasg.utils    import swagger_auto_schema
 
-from users.models      import User
 from users.serializers import SignUpSerializer, SignInSerializer
     
 class UserSignUpView(APIView):
